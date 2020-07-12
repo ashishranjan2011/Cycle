@@ -1,13 +1,28 @@
 package learnOOD;
-class Wheel{
+interface Circular{
+	int diameter();
+}
+class Wheel implements Circular{
 	private int rim;
 	private int tire;
-	public Wheel(int rim,int tire){
-		this.rim=rim;
-		this.tire=tire;
+	int rim() {
+		return rim;
+	}
+	void rim(int rim){
+		this.rim = rim;
+	}
+	int tire() {
+		return tire;
+	}
+	void tire(int tire) {
+		this.tire = tire;
+	}
+ 	public Wheel(int rim,int tire){
+		rim(rim);
+		tire(tire);
 	}
 	public int diameter(){
-		return rim+2*tire;
+		return rim()+2*tire();
 	}
 	public double circumference(){
 		return diameter()*3.14;
@@ -16,14 +31,32 @@ class Wheel{
 class Gear{
 	private int chainring;
 	private int cog;
-	private Wheel wheel;
-	public Gear(int chainring,int cog,Wheel wheel){
-		this.chainring=chainring;
-		this.cog=cog;
-		this.wheel=wheel;
+	private Circular wheel;
+	int cog() {
+		return cog;
+	}
+	void cog(int cog) {
+		this.cog = cog;
+	}
+	int chainring() {
+		return chainring;
+	}
+	void chainring(int chainring) {
+		this.chainring = chainring;
+	}
+	Circular wheel(){
+		return wheel;
+	}
+	void wheel(Circular wheel) {
+		this.wheel = wheel;
+	}
+	public Gear(int chainring,int cog,Circular wheel){
+		chainring(chainring);
+		cog(cog);
+		wheel(wheel);
 	}
 	public double ratio(){
-		return (double)this.chainring/(double)this.cog;
+		return (double)chainring()/(double)cog();
 	}
 	public double gear_inches(){
 		return ratio()*wheel.diameter();
