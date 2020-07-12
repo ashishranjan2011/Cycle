@@ -1,4 +1,5 @@
 package learnOOD;
+import java.util.*;
 interface Circular{
 	int diameter();
 }
@@ -50,22 +51,29 @@ class Gear{
 	void wheel(Circular wheel) {
 		this.wheel = wheel;
 	}
-	public Gear(int chainring,int cog,Circular wheel){
-		chainring(chainring);
-		cog(cog);
-		wheel(wheel);
+	public Gear(Map<String,Object> params){
+		chainring((int)params.get("chainring"));
+		cog((int)params.get("cog"));
+		wheel((Circular)params.get("wheel"));
+	}
+	public int diameter() {
+		return wheel.diameter();
 	}
 	public double ratio(){
 		return (double)chainring()/(double)cog();
 	}
 	public double gear_inches(){
-		return ratio()*wheel.diameter();
+		return ratio()*diameter();
 	}
 }
 class ObjectOriented{
 	public static void main(String[] args){
 		Wheel wheel=new Wheel(26,2);
-		Gear gear=new Gear(12,7,wheel);
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("chainring",12);
+		params.put("cog",7);
+		params.put("wheel",wheel);
+		Gear gear=new Gear(params);
 		System.out.println(gear.ratio());
 		System.out.println(gear.gear_inches());
 	}
