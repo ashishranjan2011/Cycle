@@ -66,6 +66,21 @@ class Gear{
 		return ratio()*diameter();
 	}
 }
+class Bicycle{
+	private String size;
+	private String type_color;
+	public Bicycle(HashMap<String,Object> params){
+		this.size=(String)params.get("size");
+		this.type_color=(String)params.get("type_color");
+	}
+	public HashMap<String,Object> spares(){
+		HashMap<String,Object> output=new HashMap<>();
+		output.put("chain","10-speed");
+		output.put("tire_size",23);
+		output.put("type_color",this.type_color);
+		return output;
+	}
+}
 class ObjectOriented{
 	public static void main(String[] args){
 		Wheel wheel=new Wheel(26,2);
@@ -76,5 +91,11 @@ class ObjectOriented{
 		Gear gear=new Gear(params);
 		System.out.println(gear.ratio());
 		System.out.println(gear.gear_inches());
+		
+		HashMap<String,Object> bicycle_params=new HashMap<>();
+		bicycle_params.put("size","M");
+		bicycle_params.put("type_color","red");
+		Bicycle bicycle=new Bicycle(bicycle_params);
+		System.out.println(bicycle.spares().get("chain"));
 	}
 }
